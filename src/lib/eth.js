@@ -169,6 +169,7 @@ export async function changeNetwork() {
       window.location.reload();
     }, 700);
   }
+}
 
 export async function getGasPrice() {
   let gasPrice = null;
