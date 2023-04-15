@@ -1,10 +1,12 @@
 //@ts-nocheck
 import { get } from "svelte/store";
 import { Contract } from "@ethersproject/contracts";
-import { PUBLIC_MAINFACTORY } from '$env/static/public';
 
 import { chainId, signer } from "./eth";
 //import abiFactory from "./abi.json";
+
+import deployedContracts from "$lib/deployedContracts.js";
+
 
 const contractsDict = {};
 
@@ -24,10 +26,11 @@ export default async function getContract() {
     return contract.connect($signer);
   }
 
-  if (!PUBLIC_MAINFACTORY) {
+  if (!deployedContracts[$chainId]) {
     throw new Error(`No contracts address for ${$chainId}`);
   }
+  
 
-  contractsDict[$chainId] = new Contract(PUBLIC_MAINFACTORY, abiFactory, $signer);
+  contractsDict[$chainId] = new Contract(deployedContracts[$chainId].challengeManager, abiFactory, $signer);
   return contractsDict[$chainId];  
 }
