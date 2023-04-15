@@ -3,7 +3,14 @@ import { error, json } from '@sveltejs/kit';
 import * as ethers from 'ethers';
 
 import { env } from '$env/dynamic/private';
-import { PUBLIC_MAINFACTORY, PUBLIC_NFT } from '$env/static/public';
+import deployedContracts from '$lib/deployedContracts.js';
+
+const RPC = {
+  31337: "http://127.0.0.1:8545",
+  5: "https://rpc.ankr.com/eth_goerli",
+  5001: "https://rpc.testnet.mantle.xyz",
+  167004: "https://rpc.a2.taiko.xyz"
+};
 
 
 const abiFactory = [
@@ -13,12 +20,10 @@ const abiFactory = [
 ]
 
 const challengeFactoryAbi = [
-  "function url() external view returns (string memory)"
-]
-
-const factoryAddress =  PUBLIC_MAINFACTORY;
-// nft is 
-const contractAddress = PUBLIC_NFT;
+  "function title() external view returns (string memory)",
+  "function name() external view returns (string memory)",
+  "function description() external view returns (string memory)"
+];
 
 
 /** @type {import('./$types').RequestHandler} */
@@ -26,13 +31,25 @@ export async function GET({ url }) {
   console.log(env);
   const challenge = url.searchParams.get('challenge');
   const player = url.searchParams.get('player');
+  const chainId = parseInt(url.searchParams.get('chainId'), 10);
  
+  const _contracts = deployedContracts[chainId];
+  const factoryAddress = _contracts.challengeManager;
+  const contractAddress = _contracts.badgesNft;
+  
+  if(!factoryAddress || !contractAddress || !RPC[chainId]) {
+    throw error(400, 'params errors, unsupported chain id ' + chainId);
+  }
+  
+  
   if (!player || !challenge) {
     throw error(400, 'params errors');
   }
  
   // todo check player has end challenge
-  const provider = new ethers.providers.JsonRpcProvider(env.DEPLOYMENT_RPC);
+
+  // based on the chain id we pick the right contract and rpc
+  const provider = new ethers.providers.JsonRpcProvider(RPC[chainId]]);
   const signer = new ethers.Wallet(env.DEPLOYMENT_MINTERPK, provider);
 
   const factory = new ethers.Contract(factoryAddress, abiFactory, signer);
@@ -44,15 +61,19 @@ export async function GET({ url }) {
   const factoryChallenge = new ethers.Contract(challenge, challengeFactoryAbi, signer);
 
 
-  const nftUrl = await factoryChallenge.url();
+  const nftTitle = await factoryChallenge.title();
+  const nftName = await factoryChallenge.name();
+  const nftDescription = await factoryChallenge.description();    
 
   const hashed = ethers.utils.solidityKeccak256(
-      ['address', 'address', 'address', 'string'],
+      ['address', 'address', 'address', 'bytes32', 'bytes32', 'bytes32'],
       [
         contractAddress,
         challenge,
         player,
-        nftUrl
+        ethers.utils.formatBytes32String(nftTitle),
+        ethers.utils.formatBytes32String(nftName),
+        ethers.utils.formatBytes32String(nftDescription)
       ]);
 
     const signature = await signer.signMessage(ethers.utils.arrayify(hashed))
@@ -60,6 +81,8 @@ export async function GET({ url }) {
 	return json({
     keccak: hashed,
 		signature,
-		nftUrl
+    title: ethers.utils.formatBytes32String(nftTitle),
+    name: ethers.utils.formatBytes32String(nftName),
+    description: ethers.utils.formatBytes32String(nftDescription)
 	});
 }

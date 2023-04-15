@@ -1,31 +1,28 @@
 <script>
-    import { PUBLIC_SAMPLECHALLENGE } from "$env/static/public";
+    import deployedContracts from "$lib/deployedContracts.js";
 
-    import { signer, wallet } from "$lib/eth";
+    import { signer, wallet, chainId } from "$lib/eth";
     import * as ethers from "ethers";
 
     import ChallengeElement from '../Challenge.svelte';
   
     const nChallenge = 0;
-    const addressChallenge = PUBLIC_SAMPLECHALLENGE;
+
+    $: contracts = deployedContracts[$chainId] || {};
+
+    $: addressChallenge = contracts.challengeFactory && contracts.challengeFactory.FactoryGuessTheNumberChallenge;
     
-    const baseurl = 'https://github.com/eugenioclrc/DeFi-Security-Summit-Stanford/tree/master/challenges_sources/'
-    const instancesDescriptions = [
-      {href: baseurl+'/Challenge0.VToken.sol', text: 'Challenge0.VToken.sol'},
-    ];
+    
 
     $: if($wallet) {
-        window.solve = async (vtoken) => {
+        window.solve = async (lottery1) => {
             const abi = [
-                "function approve(address _player, address _challenge, uint256 _signature) external",
-                "function transferFrom(address, address, uint256) external",
+                "function guess(uint8 n) external",
             ];
-            const c = new ethers.Contract(vtoken, abi, $signer);
-            const vitalik = "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045";
-            let tx = await c.approve(vitalik, $wallet, ethers.constants.MaxUint256);
+            const c = new ethers.Contract(lottery1, abi, $signer);
+            let tx = await c.guess(42);
             await tx.wait(1);
-            tx = await c.transferFrom(vitalik, $wallet, ethers.utils.parseEther("100"));
-            await tx.wait(1);
+            
         }
     }
 
@@ -35,27 +32,24 @@
     <title>Warmup</title>
   </svelte:head>
   
-  <ChallengeElement nameChallenge="Warmup" {nChallenge} {addressChallenge} {instancesDescriptions}>
+  <ChallengeElement nameChallenge="Warmup" {nChallenge} {addressChallenge}>
     <span slot="title">
       Challenge 1
       </span>
     <div slot="content">
         <blockquote>
-            <p>Warm up</p>
+            <p>GuessTheNumber</p>
           </blockquote>
           <p>
-            Let's begin with a simple warm up. Our beloved Vitalik is the proud owner of <b>100 $VTLK</b>, which is a token that follows the ERC20 token standard. Or at least that is what it seems... 😉😉😉
+            Let's begin with a simple warm up. Can you guess the number?
           </p>
-          <p>
-            Is there a way for you to steal those tokens from him? 😈😈😈
-          </p>
+
   
       Contracts;<br />
         <ul>
-          {#each instancesDescriptions as {href, text}}
-            <li><a class="link" href="{href}" target="_blank">{text}</a></li>
-          {/each}
+          <li><a class="link" href="https://github.com/eth-tokyo-project/flagship/blob/contracts-foundry/packages/forge/src/challenges/CTE/Lottery1Challenge.sol" target="_blank">Guess the number - Lottery1Challenge.sol</a></li>
         </ul>
+        <img src="/challenge1.png" />
     </div>
   </ChallengeElement>
   

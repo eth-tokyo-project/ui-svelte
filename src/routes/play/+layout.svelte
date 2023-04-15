@@ -4,8 +4,8 @@
     // import { dev } from '$app/environment';
     
     import Header from './Header.svelte';
-  import { PUBLIC_CHAINID } from '$env/static/public';
-  
+    import deployedContracts from '$lib/deployedContracts.js';
+    
     onMount(
       async () => {
         // add a test to return in SSR context
@@ -38,7 +38,7 @@
       </div>
     </div>
     <!--  /* chaiin 421613 31337*/  -->
-  {:else if $chainId != chain1 && $chainId != chain2 && $chainId != chain3 && $chainId != Etc}
+  {:else if !Object.keys(deployedContracts).map(e => parseInt(e, 10)).includes($chainId)}
     <div class="hero min-h-screen bg-base-200">
       <div class="hero-content flex-col lg:flex-row-reverse">
           <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">

@@ -1,11 +1,9 @@
 <script>
 
-    import { wallet } from '$lib/eth.js';
+    import { wallet, chainId } from '$lib/eth.js';
     import getContract from '$lib/contract.js';
     import getNft from '$lib/nft.js';
     import confetti from 'canvas-confetti';
-    
-    import {Challenges} from '$lib/store.js';
     
     export let size = "";
     export let nChallenge;
@@ -24,11 +22,11 @@
     const twitterLink = "https://twitter.com/intent/tweet?text="+encodeURIComponent("I have just solve Challenge '"+nameChallenge+"' on https://ctf-maker-monorepo.vercel.app/play/challenge"+nChallenge+" #DEFISecuritySummitStanford #ctf #blockchain #defi")
     
     async function mint() {
-        const _data = await (await fetch(`/sign?player=${$wallet}&challenge=${addressChallenge}`)).json()
+        const _data = await (await fetch(`/sign?player=${$wallet}&challenge=${addressChallenge}&chainId=${$chainId}`)).json()
         console.log(_data);
         const nft = await getNft();
         await nft.mint(
-            $wallet, addressChallenge, _data.nftUrl, _data.signature
+            $wallet, addressChallenge, _data.title, _data.name, _data.description, _data.signature
         );
     }
 
@@ -37,11 +35,13 @@
       try {
       const contract = await getContract();
         instances = await contract.getChallengesInstances($wallet, addressChallenge);
+        
         if(instances && instances.length) {
             solved = await contract.checkChallenge($wallet, addressChallenge);
         }
         const nft = await getNft();
-    hasBeenMinted = Number(await nft.balanceOf($wallet, addressChallenge));
+        const challengeId = await nft.challengesAddrToId(addressChallenge);
+        hasBeenMinted = Number(await nft.balanceOf($wallet, challengeId)) > 0;
       } catch(err) {
         console.log({err})
       }
