@@ -1,5 +1,4 @@
 import { writable, get } from "svelte/store";
-
 import { Web3Provider } from "@ethersproject/providers";
 
 export const wallet = writable(null);
@@ -97,7 +96,8 @@ export async function login() {
 }
 
 export async function changeNetwork() {
-  const chainId = `0x${(421613).toString(16)}`;
+  const chainId = `0x${(80001).toString(16)}`;
+  // const chainId = `0x${(421613).toString(16)}`;
     try {
         await window.ethereum.request({
           method: 'wallet_switchEthereumChain',
@@ -115,7 +115,7 @@ export async function changeNetwork() {
               // ]
             params: [
                 {
-                  chainId: `0x${(80001).toString(16)}`,
+                  chainId, // `0x${(80001).toString(16)}`,
                   chainName: "Mumbai Polygon TestNet",
                   nativeCurrency: {
                     name: "MATIC",
