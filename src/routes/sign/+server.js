@@ -19,7 +19,8 @@ const RPC = {
   167004: "https://rpc.a2.taiko.xyz",
   534353: "https://scroll-prealpha.blockpi.network/v1/rpc/public",
   44787: "https://alfajores-forno.celo-testnet.org",
-  1442: "https://rpc.public.zkevm-test.net"
+  1442: "https://rpc.public.zkevm-test.net",
+  10200: "https://rpc.chiadochain.net"
 };
 
 /** @type {import('./$types').RequestHandler} */

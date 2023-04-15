@@ -96,6 +96,16 @@ export async function changeNetwork(_chainId) {
       rpcUrls: ["https://rpc.ankr.com/eth_goerli"],
       blockExplorerUrls: ["https://goerli.etherscan.io/"],
     },
+    10200: {
+      chainName: "Gnosis Chiado Testnet",
+      nativeCurrency: {
+        name: "xDAI",
+        symbol: "xDAI",
+        decimals: 18,
+      },
+      rpcUrls: ["https://rpc.chiadochain.net"],
+      blockExplorerUrls: ["https://blockscout.chiadochain.net/"],
+    },
     167004: {
       chainName: "Taiko testnet",
       nativeCurrency: {
