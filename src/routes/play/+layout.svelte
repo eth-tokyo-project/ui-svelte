@@ -68,6 +68,7 @@
                 <button on:click={() => { changeNetwork(534353) }} class="btn btn-sm btn-primary my-1">Change to Scroll</button>
                 <button on:click={() => { changeNetwork(1442) }} class="btn btn-sm btn-primary my-1">Change to PolygonZKEvm</button>
                 <button on:click={() => { changeNetwork(44787) }} class="btn btn-sm btn-primary my-1">Change to CELO</button>
+                <button on:click={() => { changeNetwork(10200) }} class="btn btn-sm btn-primary my-1">Change to Gnosis Chiado</button>
               </div>
             </div>
           </div>
