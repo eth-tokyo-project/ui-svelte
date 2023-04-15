@@ -10,11 +10,10 @@
     "lint": "eslint ."
   },
   "devDependencies": {
-    "@fontsource/fira-mono": "^4.5.10",
     "@neoconfetti/svelte": "^1.0.0",
     "@sveltejs/adapter-auto": "next",
-    "@sveltejs/kit": "next",
-    "@types/cookie": "^0.5.1",
+    "@sveltejs/adapter-vercel": "^2.4.0",
+    "@sveltejs/kit": "1.5.0",
     "autoprefixer": "^10.4.14",
     "eslint": "^8.38.0",
     "eslint-plugin-svelte3": "^4.0.0",
@@ -32,6 +31,6 @@
     "@tailwindcss/typography": "^0.5.9",
     "canvas-confetti": "^1.6.0",
     "daisyui": "^2.51.5",
-    "ethers": "^5.7.1"
+    "ethers": "^5.7.2"
   }
 }
