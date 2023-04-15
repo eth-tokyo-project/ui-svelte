@@ -1,5 +1,10 @@
-import { writable, get } from "svelte/store";
-import { Web3Provider } from "@ethersproject/providers";
+import {
+  writable,
+  get
+} from "svelte/store";
+import {
+  Web3Provider
+} from "@ethersproject/providers";
 
 export const wallet = writable(null);
 export const provider = writable(null);
@@ -19,58 +24,41 @@ let _provider;
 
 
 export async function init() {
-  /*
-  const providerOptions = {
-    walletconnect: {
-      package: window.WalletConnectProvider.default,
-      options: {
-        // Mikko's test key - don't copy as your mileage may vary
-        rpc : {  80001: "https://matic-mumbai.chainstacklabs.com/", 137: "https://rpc.ankr.com/polygon" },
-      }
-    },
-  };
-  
-  web3Modal = web3Modal || new window.Web3Modal.default({
-    cacheProvider: true, // optional
-    providerOptions, // required
-    disableInjectedProvider: false, // optional. For MetaMask / Brave / Opera.
-  });
-  */
   // provider = await web3Modal.connect();
   // if (web3Modal.cachedProvider) {
-    _provider = new Web3Provider(window.ethereum, "any");
-    const __p = _provider;
-    __p.on("chainChanged", (oldNetwork) => {
-      if (oldNetwork) {
-        setTimeout(() => {
-          init();
-        }, 0);
-      }
-    });
-    
-    const _signer = await _provider.getSigner();
-    const _wallet = await _signer.getAddress();
+  _provider = new Web3Provider(window.ethereum, "any");
+  const __p = _provider;
+  __p.on("chainChanged", (oldNetwork) => {
+    if (oldNetwork) {
+      setTimeout(() => {
+        init();
+      }, 0);
+    }
+  });
 
-    window.ethereum.on('accountsChanged', function (accounts) {
-      if (accounts[0] !== _wallet) {
-        //document.location.reload()
-        setTimeout(() => {
-          init();
-        }, 0);
-      }
-      // document.location.reload();
-    });
+  const _signer = await _provider.getSigner();
+  const _wallet = await _signer.getAddress();
 
-    __p.on("accountsChanged", (accounts) => {
-      if (accounts[0] !== _wallet) {
-        //document.location.reload()
-        setTimeout(() => {
-          init();
-        }, 0);
-      }
-    });
-    
-    provider.set(_provider);
+  window.ethereum.on('accountsChanged', function (accounts) {
+    if (accounts[0] !== _wallet) {
+      //document.location.reload()
+      setTimeout(() => {
+        init();
+      }, 0);
+    }
+    // document.location.reload();
+  });
+
+  __p.on("accountsChanged", (accounts) => {
+    if (accounts[0] !== _wallet) {
+      //document.location.reload()
+      setTimeout(() => {
+        init();
+      }, 0);
+    }
+  });
+
+  provider.set(_provider);
   const _networkDetails = await _provider.getNetwork();
   networkDetails.set(_networkDetails);
   chainId.set(_networkDetails.chainId);
@@ -89,100 +77,135 @@ export async function login() {
   try {
     // await window.web3Modal.connect();
     await window.ethereum.enable();
-  } catch(err) {
-  }
-  
+  } catch (err) {}
+
   await init();
 }
 
-export async function changeNetwork() {
-  const chainId = `0x${(80001).toString(16)}`;
-  // const chainId = `0x${(421613).toString(16)}`;
-    try {
-        await window.ethereum.request({
-          method: 'wallet_switchEthereumChain',
-          params: [{ chainId }]
-        });
-      } catch (err) {
-          // This error code indicates that the chain has not been added to MetaMask
-        if (err.code === 4902) {
-          await window.ethereum.request({
-            method: "wallet_addEthereumChain",
-            //params: [
-              //   {
-              //     chainId: `0x${(5).toString(16)}`,
-              //   }
-              // ]
-            params: [
-                {
-                  chainId, // `0x${(80001).toString(16)}`,
-                  chainName: "Mumbai Polygon TestNet",
-                  nativeCurrency: {
-                    name: "MATIC",
-                    symbol: "matic",
-                    decimals: 18,
-                  },
-                  rpcUrls: ["https://matic-testnet-archive-rpc.bwarelabs.com/", "https://matic-mumbai.chainstacklabs.com/", "https://rpc-mumbai.matic.today/"],
-                  blockExplorerUrls: ["https://mumbai.polygonscan.com/"],
-                },
-              ],
-              
-            });
-        //   await window.ethereum.request({
-        //     method: 'wallet_addEthereumChain',
-        //     params: [
-        //       {
-        //         chainName: 'Arbitrum Görli',
-        //         chainId,
-        //         nativeCurrency: { name: 'AGOR', decimals: 18, symbol: 'AGOR' },
-        //         rpcUrls: ['https://goerli-rollup.arbitrum.io/rpc/'],
-        //         blockExplorerUrls: ["https://goerli-rollup-explorer.arbitrum.io/"],
-        //       }
-        //     ]
-        //   });
-        // }
-      }
-/*
+export async function changeNetwork(_chainId) {
+  const chainId = `0x${(_chainId).toString(16)}`;
+
+  const extraData = {
+    5: {
+      chainName: "Goerli TestNet",
+      nativeCurrency: {
+        name: "ETH",
+        symbol: "ETH",
+        decimals: 18,
+      },
+      rpcUrls: ["https://rpc.ankr.com/eth_goerli"],
+      blockExplorerUrls: ["https://goerli.etherscan.io/"],
+    },
+    167004: {
+      chainName: "Taiko testnet",
+      nativeCurrency: {
+        name: "ETH",
+        symbol: "ETH",
+        decimals: 18,
+      },
+      rpcUrls: ["https://rpc.a2.taiko.xyz"],
+      blockExplorerUrls: ["https://explorer.a2.taiko.xyz/"],
+    },
+    534353: {
+      chainName: "Scroll Testnet",
+      nativeCurrency: {
+        name: "ETH",
+        symbol: "ETH",
+        decimals: 18,
+      },
+      rpcUrls: ["https://alpha-rpc.scroll.io/l2", "https://scroll-alpha-public.unifra.io"],
+      blockExplorerUrls: ["https://blockscout.scroll.io/"],
+    },
+    5001: {
+      chainName: "Mantle Testnet",
+      nativeCurrency: {
+        name: "BIT",
+        symbol: "BIT",
+        decimals: 18,
+      },
+      rpcUrls: ["https://rpc.testnet.mantle.xyz"],
+      blockExplorerUrls: ["https://explorer.testnet.mantle.xyz/"],
+    },
+    44787: {
+      chainName: "CELO Alfajores Testnet",
+      nativeCurrency: {
+        name: "CELO",
+        symbol: "CELO",
+        decimals: 18,
+      },
+      rpcUrls: ["https://alfajores-forno.celo-testnet.org"],
+      blockExplorerUrls: ["https://explorer.celo.org/alfajores/"],
+    },
+    1442: {
+      chainName: "Polygon zkEVM Testnet",
+      nativeCurrency: {
+        name: "ETH",
+        symbol: "ETH",
+        decimals: 18,
+      },
+      rpcUrls: ["https://rpc.public.zkevm-test.net"],
+      blockExplorerUrls: ["https://testnet-zkevm.polygonscan.com/"],
+    }
+  };
+
+  if (!extraData[_chainId]) {
+    alert("network not supported chain id:" +_chainId);
+  }
+  
+  try {
     await window.ethereum.request({
-    method: "wallet_addEthereumChain",
-    params: [
-        {
-          chainId: `0x${(5).toString(16)}`,
-        }
-      ]
-    /*params: [
-        {
-          chainId: `0x${(80001).toString(16)}`,
-          chainName: "Mumbai Polygon TestNet",
-          nativeCurrency: {
-            name: "MATIC",
-            symbol: "matic",
-            decimals: 18,
-          },
-          rpcUrls: ["https://matic-testnet-archive-rpc.bwarelabs.com/", "https://matic-mumbai.chainstacklabs.com/", "https://rpc-mumbai.matic.today/"],
-          blockExplorerUrls: ["https://mumbai.polygonscan.com/"],
-        },
-      ],
-      */
+      method: 'wallet_switchEthereumChain',
+      params: [{
+        chainId
+      }]
+    });
+  } catch (err) {
+    // This error code indicates that the chain has not been added to MetaMask
+    if (err.code === 4902) {
+      await window.ethereum.request({
+        method: "wallet_addEthereumChain",
+
+        params: [{
+          chainId,
+          ...extraData[_chainId]
+        }, ],
+
+      });
+  
+    }
+    /*
+        await window.ethereum.request({
+        method: "wallet_addEthereumChain",
+        params: [
+            {
+              chainId: `0x${(5).toString(16)}`,
+            }
+          ]
+        /*params: [
+            {
+              chainId: `0x${(80001).toString(16)}`,
+              chainName: "Mumbai Polygon TestNet",
+              nativeCurrency: {
+                name: "MATIC",
+                symbol: "matic",
+                decimals: 18,
+              },
+              rpcUrls: ["https://matic-testnet-archive-rpc.bwarelabs.com/", "https://matic-mumbai.chainstacklabs.com/", "https://rpc-mumbai.matic.today/"],
+              blockExplorerUrls: ["https://mumbai.polygonscan.com/"],
+            },
+          ],
+          */
     //});
+    try {
+      await window.ethereum.request({
+        method: 'wallet_switchEthereumChain',
+        params: [{
+          chainId
+        }]
+      });
+    } catch(err) { /*empty */ }
     setTimeout(() => {
       window.location.reload();
     }, 700);
   }
-}
-
-export async function getGasPrice() {
-  let gasPrice = null;
-  // let maxFeePerGas = null;
-  // let maxPriorityFeePerGas = null;
-  try {
-    const _provider = await get(provider);
-    const feeData = await _provider.getFeeData();
-    gasPrice = String(feeData.gasPrice.mul(2));
-    // maxFeePerGas = String(feeData.maxFeePerGas.mul(2));
-    // maxPriorityFeePerGas = String(feeData.maxPriorityFeePerGas.mul(2));
-  } catch(err) {
-    console.log(err);
-  }
-  return gasPrice;
 }

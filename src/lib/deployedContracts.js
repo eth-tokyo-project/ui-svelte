@@ -19,6 +19,16 @@ export default {
       FactoryGuessTheRandomNumberChallenge: '0xdead', // challenge3, not deployed yet
     }
   },
+  // scroll Scroll Alpha Testnet https://scroll-prealpha.blockpi.network/v1/rpc/public	
+  534353: {
+    badgesNft: '0xa1324f953e8e75a09593Ed7473722690cC624D54',
+    challengeManager: '0xB40144707F71e3e132327F528263aFB0bA458821',
+    challengeFactory: {
+      FactoryGuessTheNumberChallenge: '0x4eE2ad8a12E6D5b272994bF2393aF5D0332Acc86', // challenge1,
+      FactoryGuessTheSecretNumberChallenge: '0x84AD75721aE069C3056d4577F687E51Da1F61a20', // challenge2, not deployed yet
+      FactoryGuessTheRandomNumberChallenge: '0x7DFeDC5D8376f2fC882d58dD4F64e8008024bAba', // challenge3, not deployed yet
+    }
+  },
   // mantle
   5001: {
     badgesNft: '0xa1324f953e8e75a09593Ed7473722690cC624D54',
@@ -29,14 +39,34 @@ export default {
       FactoryGuessTheRandomNumberChallenge: '0xdead', // challenge3, not deployed yet
     }
   },
+  // Celo alfajores
+  44787: {
+    badgesNft: '0xa1324f953e8e75a09593Ed7473722690cC624D54',
+    challengeManager: '0xB40144707F71e3e132327F528263aFB0bA458821',
+    challengeFactory: {
+      FactoryGuessTheNumberChallenge: '0x4eE2ad8a12E6D5b272994bF2393aF5D0332Acc86', // challenge1,
+      FactoryGuessTheSecretNumberChallenge: '0x84AD75721aE069C3056d4577F687E51Da1F61a20', // challenge2
+      FactoryGuessTheRandomNumberChallenge: '0x7DFeDC5D8376f2fC882d58dD4F64e8008024bAba', // challenge3
+    }
+  },
+  // Polygon ZK EVM, https://rpc.public.zkevm-test.net	
+  1442: {
+    badgesNft: '0xa1324f953e8e75a09593Ed7473722690cC624D54',
+    challengeManager: '0xB40144707F71e3e132327F528263aFB0bA458821',
+    challengeFactory: {
+      FactoryGuessTheNumberChallenge: '0x4eE2ad8a12E6D5b272994bF2393aF5D0332Acc86', // challenge1,
+      FactoryGuessTheSecretNumberChallenge: '0x84AD75721aE069C3056d4577F687E51Da1F61a20', // challenge2
+      FactoryGuessTheRandomNumberChallenge: '0x7DFeDC5D8376f2fC882d58dD4F64e8008024bAba', // challenge3
+    }
+  },
   // goerli
   5: {
     badgesNft: '0xa1324f953e8e75a09593Ed7473722690cC624D54',
     challengeManager: '0xB40144707F71e3e132327F528263aFB0bA458821',
     challengeFactory: {
       FactoryGuessTheNumberChallenge: '0x4eE2ad8a12E6D5b272994bF2393aF5D0332Acc86', // challenge1,
-      FactoryGuessTheSecretNumberChallenge: '0x84AD75721aE069C3056d4577F687E51Da1F61a20', // challenge2, not deployed yet
-      FactoryGuessTheRandomNumberChallenge: '0x7DFeDC5D8376f2fC882d58dD4F64e8008024bAba', // challenge3, not deployed yet
+      FactoryGuessTheSecretNumberChallenge: '0x84AD75721aE069C3056d4577F687E51Da1F61a20', // challenge2
+      FactoryGuessTheRandomNumberChallenge: '0x7DFeDC5D8376f2fC882d58dD4F64e8008024bAba', // challenge3
     }
   }
 }
