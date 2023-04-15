@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { get } from "svelte/store";
 import { Contract } from "@ethersproject/contracts";
 import { PUBLIC_MAINFACTORY } from '$env/static/public';

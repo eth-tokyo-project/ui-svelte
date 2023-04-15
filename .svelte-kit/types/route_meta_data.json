@@ -1,4 +1,10 @@
 {
 	"/": [],
-	"": []
+	"": [],
+	"play": [],
+	"play/challenge0": [],
+	"play/challenge1": [],
+	"sign": [
+		"src/routes/sign/+server.js"
+	]
 }

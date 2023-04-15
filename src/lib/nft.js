@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import { get } from "svelte/store";
 import { Contract } from "@ethersproject/contracts";
 import { PUBLIC_NFT } from '$env/static/public';

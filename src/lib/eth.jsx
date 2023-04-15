@@ -107,18 +107,40 @@ export async function changeNetwork() {
           // This error code indicates that the chain has not been added to MetaMask
         if (err.code === 4902) {
           await window.ethereum.request({
-            method: 'wallet_addEthereumChain',
+            method: "wallet_addEthereumChain",
+            //params: [
+              //   {
+              //     chainId: `0x${(5).toString(16)}`,
+              //   }
+              // ]
             params: [
-              {
-                chainName: 'Arbitrum Görli',
-                chainId,
-                nativeCurrency: { name: 'AGOR', decimals: 18, symbol: 'AGOR' },
-                rpcUrls: ['https://goerli-rollup.arbitrum.io/rpc/'],
-                blockExplorerUrls: ["https://goerli-rollup-explorer.arbitrum.io/"],
-              }
-            ]
-          });
-        }
+                {
+                  chainId: `0x${(80001).toString(16)}`,
+                  chainName: "Mumbai Polygon TestNet",
+                  nativeCurrency: {
+                    name: "MATIC",
+                    symbol: "matic",
+                    decimals: 18,
+                  },
+                  rpcUrls: ["https://matic-testnet-archive-rpc.bwarelabs.com/", "https://matic-mumbai.chainstacklabs.com/", "https://rpc-mumbai.matic.today/"],
+                  blockExplorerUrls: ["https://mumbai.polygonscan.com/"],
+                },
+              ],
+              
+            });
+        //   await window.ethereum.request({
+        //     method: 'wallet_addEthereumChain',
+        //     params: [
+        //       {
+        //         chainName: 'Arbitrum Görli',
+        //         chainId,
+        //         nativeCurrency: { name: 'AGOR', decimals: 18, symbol: 'AGOR' },
+        //         rpcUrls: ['https://goerli-rollup.arbitrum.io/rpc/'],
+        //         blockExplorerUrls: ["https://goerli-rollup-explorer.arbitrum.io/"],
+        //       }
+        //     ]
+        //   });
+        // }
       }
 /*
     await window.ethereum.request({

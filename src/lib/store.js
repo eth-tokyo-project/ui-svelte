@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { writable, derived, get } from 'svelte/store';
 
 import { wallet } from './eth';

@@ -112,6 +112,9 @@ declare module '$env/static/private' {
 	export const npm_config_prefix: string;
 	export const FIG_TERM: string;
 	export const COLORTERM: string;
+	export const NODE_ENV: string;
+	export const DEPLOYMENT_MINTERPK: string;
+	export const DEPLOYMENT_RPC: string;
 }
 
 /**
@@ -124,7 +127,10 @@ declare module '$env/static/private' {
  * ```
  */
 declare module '$env/static/public' {
-
+	export const PUBLIC_NFT: string;
+	export const PUBLIC_MAINFACTORY: string;
+	export const PUBLIC_SAMPLECHALLENGE: string;
+	export const PUBLIC_CHAINID: string;
 }
 
 /**
@@ -227,6 +233,9 @@ declare module '$env/dynamic/private' {
 		npm_config_prefix: string;
 		FIG_TERM: string;
 		COLORTERM: string;
+		NODE_ENV: string;
+		DEPLOYMENT_MINTERPK: string;
+		DEPLOYMENT_RPC: string;
 		[key: string]: string | undefined;
 	}
 }
@@ -243,6 +252,10 @@ declare module '$env/dynamic/private' {
  */
 declare module '$env/dynamic/public' {
 	export const env: {
+		PUBLIC_NFT: string;
+		PUBLIC_MAINFACTORY: string;
+		PUBLIC_SAMPLECHALLENGE: string;
+		PUBLIC_CHAINID: string;
 		[key: string]: string | undefined;
 	}
 }
