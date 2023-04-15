@@ -1,38 +1,32 @@
-# create-svelte
+# Instructions
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
-
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
+### start a node
+```sh
+anvil
 ```
 
-## Developing
+### deploy the contracts
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+Using default anvil keys
 
-```bash
-npm run dev
+```sh
+(base) ➜  hackaton-tokio-contracts git:(main)  forge script script/Deploy.s.sol --rpc-url http://127.0.0.1:8545 --private-key=0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80 --broadcast
+[⠢] Compiling...
+No files changed, compilation skipped
+Script ran successfully.
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+== Return ==
+badge: address 0x5FbDB2315678afecb367f032d93F642f64180aa3
+challengeManager: address 0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0
+challenge1: address 0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9
+challenge2: address 0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9
+challenge3: address 0x5FC8d32690cc91D4c39d9d3abcBD16989F875707
+
 ```
 
-## Building
+### Send eth to your account
 
-To create a production version of your app:
-
-```bash
-npm run build
+Example
+```sh
+ cast send 0xC0de4Cc8dD7E721eA567788b48e7F08F966005BB --value 1ether --rpc-url http://127.0.0.1:8545 --private-key=0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80
 ```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
