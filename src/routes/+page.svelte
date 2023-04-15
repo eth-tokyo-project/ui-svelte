@@ -3,7 +3,7 @@
 </svelte:head>
 
 <div class="min-h-screen max-w-md md:max-w-full flex flex-col">
-  <div class="w-full h-1/2 min-h-[360px] flex-grow text-center hero bg-black" style="background-image: url(/logo.svg);">
+  <div class="w-full h-1/2 min-h-[360px] flex-grow text-center hero bg-black bg-no-repeat" style="background-image: url(/logo.svg); background-size: 800px 300px;">
     <div class="flex flex-col">
       <div class="text-white text-6xl" style="
 		text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
@@ -14,7 +14,7 @@
 	  Build your onchain resume on your favourite blockchain.
 	  </div>
 		<br>
-      <a href="/play" class="btn btn-accent mx-4 md:mx-0 text-2xl">Let`s play!
+      <a href="/play" class="btn btn-accent mx-4 md:mx-0 text-2xl">Get Started!
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
           <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
         </svg>
