@@ -46,13 +46,28 @@
                 <div class="text-center lg:text-left">
                   <h1 class="text-4xl font-bold">Wrong network</h1>
                   <p class="py-6">
-                    Please connect to <b>your favourite chain</b>, you can search and 
-                    add it from <a class="link-primary" href="https://chainlist.org/" rel="noreferrer" target="_blank">https://chainlist.org/</a>
+                    Please connect to <b>one of this chains</b>, you can search and 
+                    add it from <a class="link-primary" href="https://chainlist.org/?testnets=true" rel="noreferrer" target="_blank">https://chainlist.org/</a>
                   </p>
+                  <!--
+                  <ul>
+                      <li>- chainId: 5, <a class="link-secondary" href="https://chainlist.org/chain/5" target="_blank">chainlist</a></li>
+                      <li>- chainId: 5001, <a class="link-secondary" href="https://chainlist.org/chain/5001" target="_blank">chainlist</a></li>
+                      <li>- chainId: 167004, <a class="link-secondary" href="https://chainlist.org/chain/167004" target="_blank">chainlist</a></li>
+                      <li>- chainId: 534353, <a class="link-secondary" href="https://chainlist.org/chain/534353" target="_blank">chainlist</a></li>
+                      <li>- chainId: 44787, <a class="link-secondary" href="https://chainlist.org/chain/44787" target="_blank">chainlist</a></li>
+                      <li>- chainId: 1442, <a class="link-secondary" href="https://chainlist.org/chain/1442" target="_blank">chainlist</a></li>
+                  </ul>
+                  -->
                 </div>
               
-              <div class="form-control mt-6">
-                <button on:click={changeNetwork} class="btn btn-primary">Change network</button>
+              <div class="form-control mt-6 flex">
+                <button on:click={() => { changeNetwork(5) }} class="btn btn-sm btn-primary my-1">Change to Goerli</button>
+                <button on:click={() => { changeNetwork(5001) }} class="btn btn-sm btn-primary my-1">Change to Mantle</button>
+                <button on:click={() => { changeNetwork(167004) }} class="btn btn-sm btn-primary my-1">Change to Taiko</button>
+                <button on:click={() => { changeNetwork(534353) }} class="btn btn-sm btn-primary my-1">Change to Scroll</button>
+                <button on:click={() => { changeNetwork(1442) }} class="btn btn-sm btn-primary my-1">Change to PolygonZKEvm</button>
+                <button on:click={() => { changeNetwork(44787) }} class="btn btn-sm btn-primary my-1">Change to CELO</button>
               </div>
             </div>
           </div>

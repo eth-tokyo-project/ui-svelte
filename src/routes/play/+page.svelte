@@ -19,18 +19,43 @@
                 </p>
               {/if}
             </div>
-            {#each ["Warm up","Take a flash loan"] as tip,s}
+            
+              <!-- challenge 0 -->
               <div class="form-control mt-6">
-                <div class="tooltip" data-tip={tip}>
-                  <a href="/play/challenge{s}" class="btn btn-primary" class:btn-link={$Challenges[s].solved}>
-                    {#if $Challenges[s].solved}
+                <div class="tooltip" data-tip="Lets warm up">
+                  <a href="/play/challenge-guess" class="btn btn-primary" class:btn-link={$Challenges[0].solved}>
+                    {#if $Challenges[0].solved}
                       <span class="text-green-500">✓</span>
                     {/if}
-                    <span class:line-through={$Challenges[s].solved}>Challenge {s}</span>
+                    <span class:line-through={$Challenges[0].solved}>Guess the number</span>
                   </a>
                 </div>
               </div>
-            {/each}
+
+              <!-- challenge 1 -->
+              <div class="form-control mt-6">
+                <div class="tooltip" data-tip="Could you crack it?">
+                  <a href="/play/challenge-secret" class="btn btn-primary" class:btn-link={$Challenges[1].solved}>
+                    {#if $Challenges[1].solved}
+                      <span class="text-green-500">✓</span>
+                    {/if}
+                    <span class:line-through={$Challenges[1].solved}>Guess the secret number</span>
+                  </a>
+                </div>
+              </div>
+
+              <!-- challenge 2 -->
+              <div class="form-control mt-6">
+                <div class="tooltip" data-tip="Even a random one?">
+                  <a href="/play/challenge-random" class="btn btn-primary" class:btn-link={$Challenges[2].solved}>
+                    {#if $Challenges[2].solved}
+                      <span class="text-green-500">✓</span>
+                    {/if}
+                    <span class:line-through={$Challenges[2].solved}>Guess the random number</span>
+                  </a>
+                </div>
+              </div>
+            
             
           </div>
         </div>

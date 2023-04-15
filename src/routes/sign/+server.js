@@ -5,26 +5,22 @@ import * as ethers from 'ethers';
 import { env } from '$env/dynamic/private';
 import deployedContracts from '$lib/deployedContracts.js';
 
-const RPC = {
-  31337: "http://127.0.0.1:8545",
-  5: "https://rpc.ankr.com/eth_goerli",
-  5001: "https://rpc.testnet.mantle.xyz",
-  167004: "https://rpc.a2.taiko.xyz"
-};
-
 
 const abiFactory = [
-  "function deployChallenge(address) external",
-  "function getChallengesInstances(address,address) external view returns(address[] memory)",
-  "function checkChallenge(address user, address _challengeFactory) public view returns(bool)"
-]
-
-const challengeFactoryAbi = [
-  "function title() external view returns (string memory)",
+  "function deployChallengparsnal view returns (string memory)",
   "function name() external view returns (string memory)",
   "function description() external view returns (string memory)"
 ];
 
+const RPC = {
+  31337: "http://127.0.0.1:8545",
+  5: "https://rpc.ankr.com/eth_goerli",
+  5001: "https://rpc.testnet.mantle.xyz",
+  167004: "https://rpc.a2.taiko.xyz",
+  534353: "https://scroll-prealpha.blockpi.network/v1/rpc/public",
+  44787: "https://alfajores-forno.celo-testnet.org",
+  1442: "https://rpc.public.zkevm-test.net"
+};
 
 /** @type {import('./$types').RequestHandler} */
 export async function GET({ url }) {
@@ -37,7 +33,8 @@ export async function GET({ url }) {
   const factoryAddress = _contracts.challengeManager;
   const contractAddress = _contracts.badgesNft;
   
-  if(!factoryAddress || !contractAddress || !RPC[chainId]) {
+  const rpcProvider = RPC[chainId] || '';
+  if(!factoryAddress || !contractAddress || !rpcProvider) {
     throw error(400, 'params errors, unsupported chain id ' + chainId);
   }
   
@@ -49,7 +46,7 @@ export async function GET({ url }) {
   // todo check player has end challenge
 
   // based on the chain id we pick the right contract and rpc
-  const provider = new ethers.providers.JsonRpcProvider(RPC[chainId]]);
+  const provider = new ethers.providers.JsonRpcProvider(rpcProvider);
   const signer = new ethers.Wallet(env.DEPLOYMENT_MINTERPK, provider);
 
   const factory = new ethers.Contract(factoryAddress, abiFactory, signer);
